@@ -11,8 +11,8 @@ struct Dot {
 async fn main() {
     let mut dots: Vec<Dot> = vec![];
     let mut radius = 20f32;
-    let mut color = BLUE;
     let mut colors = vec![WHITE, RED, BLUE, YELLOW, GREEN].into_iter().cycle();
+    let mut color = colors.next().unwrap();
 
     loop {
         clear_background(BLACK);
@@ -27,7 +27,7 @@ async fn main() {
         }
 
         // color
-        if is_mouse_button_pressed(MouseButton::Right) {
+        if is_key_pressed(KeyCode::Space) {
             color = colors.next().unwrap();
         }
 
@@ -53,7 +53,7 @@ async fn main() {
 
         // text
         draw_text(
-            format!("Size: {} {}\nDots: {}", radius / 2.0, if shift_held { "(3x)" } else { "" }, dots.len()).as_str(),
+            format!("Size: {} {}\nDots: {}", radius, if shift_held { "(3x)" } else { "" }, dots.len()).as_str(),
             20.0,
             30.0,
             40.0,
